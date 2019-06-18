@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 # FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -187,3 +188,8 @@ MARKDOWNX_UPLOAD_MAX_SIZE = 5 * 1024 * 1024 # 50MB # Maximum file size
 MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png','image/svg+xml'] # Acceptable file types
 MARKDOWNX_IMAGE_MAX_SIZE = {'size': (800, 500), 'quality': 100,} # Different options describing final image size, compression etc. after upload.
 MARKDOWNX_EDITOR_RESIZABLE = True
+
+# Heroku: Update database configuration from $DATABASE_URL.
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
