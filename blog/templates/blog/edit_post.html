@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- 마크다운 파트 코드 블럭 -->
+<link href='{% static "markdown/style.css" %}' rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css">
+{% endblock %}
+
+{% block javascript %}
+<!-- 마크다운 파트 코드 블럭 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+    for (const textarea of document.getElementsByTagName('textarea')) {
+        textarea.addEventListener('blur', e => {
+            for (const block of document.querySelectorAll('pre code')) {
+                hljs.highlightBlock(block);
+            }
+        });
+    }
+</script>
+<!-- tab가능하게 해주는 코드 -->
+<script>
+$("textarea").keydown(function(e) {
+    if(e.keyCode === 9) { // tab was pressed
+        // get caret position/selection
+        var start = this.selectionStart;
+            end = this.selectionEnd;
+
+        var $this = $(this);
+
+        // set textarea value to: text before caret + tab + text after caret
+        $this.val($this.val().substring(0, start)
+                    + "\t"
+                    + $this.val().substring(end));
+
+        // put caret at right position again
+        this.selectionStart = this.selectionEnd = start + 1;
+
+        // prevent the focus lose
+        return false;
+    }
+});
+</script>
+
+
+{% endblock %}
+{% block content %}
+<!-- top bar -->
+
+
+<div class="top-bar">
+        <h1>Edit post</h1>
+        <a href='{% url "home" %}'>Home</a> / 
+        <a href="{% url 'blog:boards' %}">Board</a> / 
+        <a href="{% url 'blog:board_topics' post.topic.board.pk %}">{{ topic.board.name }}</a> / 
+        <a href="{% url 'blog:topic_posts' post.topic.board.pk post.topic.pk %}">{{ post.topic.subject }}</a> / 
+        edit
+    </div>
+<div style="margin-left:30px;margin-right:30px;">
+    <form method="post" class="mb-4" novalidate>
+        {% csrf_token %}
+        {% include 'includes/form.html' %}
+        {{ form.media }}
+        <button type="submit" class="btn btn-success">Save changes</button>
+        <a href="{% url 'blog:topic_posts' post.topic.board.pk post.topic.pk %}" class="btn btn-outline-secondary" role="button">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

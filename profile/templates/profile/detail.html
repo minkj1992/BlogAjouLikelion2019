@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block stylesheet %}
+    <!-- 나눔 폰트  -->
+    <link href='https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo" rel="stylesheet">
+    
+    <!--box 템플릿 Bootstrap -->
+    <link href='{% static "portfolio/css/bootstrap.min.css" %}' rel="stylesheet">
+    <!-- 모바일 관련 box템플릿 css -->
+    <link href='{% static "portfolio/ionicons/css/ionicons.min.css" %}' rel="stylesheet">
+
+{% endblock %}
+
+{# {% load spacify %} {% load thumbnail %}{% thumbnail profile.photo "1170x700" crop="center" as photo %}{% endthumbnail %} #}
+{% block content %}
+    <!-- top-bar -->
+    <div class="top-bar">
+            <h1>Who am I</h1>
+            <a href='{% url "home" %}'>Home</a> / 
+            <a href='{% url "portfolio" %}'>Portfolio</a> / {{ profile.name }}
+    </div>
+    <!-- end top-bar -->
+        <!-- main-container -->
+        <div class="container main-container" >
+            <div class="col">
+            <img src="{{ profile.photo.url }}" alt="" class="img-responsive">    
+            <!-- <img src="{#{{ profile.photo.url }}#}" alt="image" style="max-width:1080; max-height: 1440;"> -->
+            
+            <div class="h-30"></div>
+        </div>  
+            
+    
+            <div class="col" style="text-align: center;">
+                <h3 class="text-uppercase">{{ profile.name }}</h3>
+                <h5>{{ profile.major }} / {{ profile.grade }}학년</h5>
+                <h6><a href="{{ profile.portfolio }}">{{ profile.portfolio }}</a></h6>
+                <div class="h-30"></div>
+            </div>
+
+            <div class="col" style = "font-size: large;">
+                <h4 style="color: #313131; text-align: left;font-weight: bold;font-family:'Nanum Myeongjo', serif;">> 지원 동기</h4>    
+                <p style="color: #303030;text-align: left;font-family:'Nanum Myeongjo', serif;">{{ profile.purpose|linebreaksbr }}</p>
+                
+            </div>
+            <br />
+            <div class="col-md-16" style = "font-size: large;">
+                <h4 style="color: #313131; text-align: left;font-weight: bold;font-family:'Nanum Myeongjo', serif;">> 만들고 싶은 서비스</h4>    
+                <p style="color: #303030;text-align: left;font-family:'Nanum Myeongjo', serif;">{{ profile.service|linebreaksbr }}</p>
+            </div>
+
+            <br />
+            <div class="col-md-16" style = "font-size: large;">
+                <h4 style="color: #313131; text-align: left;font-weight: bold;font-family:'Nanum Myeongjo', serif;">> 프로젝트 경험</h4>    
+                <p style="color: #303030;text-align: left;font-family:'Nanum Myeongjo', serif;">{{ profile.proj_exp|linebreaksbr }}</p>
+            </div>
+            <br />
+            <div class="col-md-16" style = "font-size: large;">
+                <h4 style="color: #313131; text-align: left;font-weight: bold;font-family:'Nanum Myeongjo', serif;">> 관심 분야</h4>    
+                <p style="color: #303030;text-align: left;font-family:'Nanum Myeongjo', serif;">{{ profile.domain|linebreaksbr }}</p>
+            </div>
+        </div>
+        <!-- end main-container -->
+{% endblock %}   
+

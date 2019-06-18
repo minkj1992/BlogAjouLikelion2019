@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{% endblock %}
+
+{% load humanize %}
+{% block content %}
+<!-- page_obj는 paginator 자체 변수 -->
+
+<!-- top bar -->
+<div class="top-bar">
+    <h1>{{ board.name }}</h1>
+    <a href='{% url "home" %}'>Home</a> / 
+    <a href="{% url 'blog:boards' %}">Board</a> / {{ board.name }}
+</div>
+
+<div class="container">
+    <div class="mb-4">
+        <a href="{% url 'blog:new_topic' board.pk %}" class="btn btn-primary">New topic</a>
+    </div>
+    <table class="table table-striped mb-4">
+        <thead class="thead-inverse">
+        <tr>
+            <th>Topic</th>
+            <th>Starter</th>
+            <th>Replies</th>
+            <th>Views</th>
+            <th>Last Update</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+            {% url 'blog:topic_posts' board.pk topic.pk as topic_url %}
+            <tr>
+                <td>
+                    <p class="mb-0">
+                      <a href="{{ topic_url }}">{{ topic.subject }}</a>
+                    </p>
+                    <small class="text-muted">
+                        Pages:
+                        {% for i in topic.get_page_range %}
+                          <a href="{{ topic_url }}?page={{ i }}">{{ i }}</a>
+                        {% endfor %}
+                        {% if topic.has_many_pages %}
+                        ... <a href="{{ topic_url }}?page={{ topic.get_page_count }}">Last Page</a>
+                        {% endif %}
+                    </small>
+                </td>
+            <td class="align-middle">{{ topic.starter.username }}</td>
+            <td class="align-middle">{{ topic.replies }}</td>
+            <td class="align-middle">{{ topic.views }}</td>
+            <td class="align-middle">{{ topic.last_updated|naturaltime }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% include 'includes/pagination.html' %}
+
+</div>
+
+{% endblock %}

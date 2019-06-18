@@ -1,0 +1,99 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>LikeLion in Ajou 7기</title>
+    <link rel="icon" href='{% static "portfolio/img/fav.png" %}'  type="image/x-icon">
+    
+    <!-- main css -->
+    <link href='{% static "portfolio/css/style.css" %}' rel="stylesheet">
+
+    {% block stylesheet %}{% endblock %}
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="pre-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Preloader -->
+    
+    <div class="container-fluid">
+        <!-- box header -->
+        <header class="box-header">
+            
+            <div class="box-logo">
+                <!-- 고쳐야 되는 파트 -->
+                <img src='{% static "portfolio/img/logo2.png" %}' width="40" alt="Logo" style="background:transparent;">
+            </div>
+            <!-- box-nav -->
+            <a class="box-primary-nav-trigger" href="#0">
+                <span class="box-menu-text">Menu</span><span class="box-menu-icon"></span>
+            </a>
+            <!-- box-primary-nav-trigger -->
+        </header>
+        <!-- end box header -->
+        
+        <!-- nav -->
+        <nav>
+            <ul class="box-primary-nav">
+                <li class="box-label">LikeLion 2019</li>
+                {% if user.is_authenticated %}
+                
+                <li style="color:#999;">반갑습니다 {{ user.username }}님 [<a href='{% url "logout" %}'>Logout</a>]</li>
+                {% else %}
+                <li><a href='{% url "login" %}'>Login</a></li>
+                {% endif %}
+                <!-- 고쳐야 되는 파트 -->
+                <li><a href='{% url "home" %}'>home</a></li>
+                <li><a href='{% url "portfolio" %}'>portfolio</a></li>
+                <li><a href='{% url "blog:boards" %}'>board</a></li>
+
+            </ul>
+        </nav>
+        <!-- end nav -->
+    </div>
+    <!-- block -->
+    {% block content %}{% endblock %}
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright">© 멋쟁이 사자처럼 7기</p>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    <!-- back to top -->
+    <a href="#0" class="cd-top"><img src='{% static "lion.png" %}' width="40" height="40"/></a>
+    <!-- end back to top -->
+    
+    <script src='{% static "portfolio/js/jquery-2.1.1.js" %}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- 메뉴 네브바 움직이게 -->
+    <script src='{% static "portfolio/js/menu.js" %}'></script>
+    <!-- 아이폰 -->
+    <script src='{% static "portfolio/js/isotope.pkgd.min.js" %}'></script>
+
+    <!--  custom script  -->
+    <!-- preloading을 비롯한 자바스크립트 -->
+    <script src='{% static "portfolio/js/custom.js" %}'></script>
+    
+
+    {% block javascript %}{% endblock %}
+
+
+</body>
+
+</html>

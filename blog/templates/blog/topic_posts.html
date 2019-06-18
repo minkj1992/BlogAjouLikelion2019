@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block stylesheet %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!-- 마크다운 파트 코드 블럭 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/dracula.min.css">
+<link href='{% static "markdown/style.css" %}' rel="stylesheet">
+<!-- reply 폰트 -->
+<link href="https://fonts.googleapis.com/css?family=Amatic+SC:bold" rel="stylesheet">
+{% endblock %}
+
+{% block javascript %}
+<!-- 마크다운 파트 코드 블럭 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+
+hljs.initHighlightingOnLoad();
+
+
+for (const textarea of document.getElementsByTagName('textarea')) {
+    textarea.addEventListener('blur', e => {
+        for (const block of document.querySelectorAll('pre code')) {
+            hljs.highlightBlock(block);
+        }
+    });
+}
+</script>
+
+<!-- tab가능하게 해주는 코드 -->
+<script>
+$("textarea").keydown(function(e) {
+    if(e.keyCode === 9) { // tab was pressed
+        // get caret position/selection
+        var start = this.selectionStart;
+            end = this.selectionEnd;
+
+        var $this = $(this);
+
+        // set textarea value to: text before caret + tab + text after caret
+        $this.val($this.val().substring(0, start)
+                    + "\t"
+                    + $this.val().substring(end));
+
+        // put caret at right position again
+        this.selectionStart = this.selectionEnd = start + 1;
+
+        // prevent the focus lose
+        return false;
+    }
+});
+</script>
+
+
+{% endblock %}
+
+{% load thumbnail %}   
+{% block content %}
+<!-- top bar -->
+
+<div class="top-bar">
+    <h1>{{ topic.subject }}</h1>
+    <a href='{% url "home" %}'>Home</a> / 
+    <a href="{% url 'blog:boards' %}">Board</a> / 
+    <a href="{% url 'blog:board_topics' topic.board.pk %}">{{ topic.board.name }}</a> / 
+    {{ topic.subject }}
+</div>
+
+
+
+<div class="container">
+    <div class="mb-4">
+      <a href="{% url 'blog:reply_topic' topic.board.pk topic.pk %}" class="btn btn-primary" role="button">Reply</a>
+    </div>
+
+  {% for post in posts %}
+  <br/><br/>
+    <div class="card" id="{{ post.pk }}" class="card {% if forloop.last %}mb-4{% else %}mb-2{% endif %} {% if forloop.first %}border-dark{% endif %}">
+      {% if forloop.first %}
+      <!-- <p style="text-align:center; font-weight: bold;"></p> -->
+      <div class="card-header text-white bg-dark py-2 px-3">{{ topic.subject }}</div>
+      {% endif %}
+
+      <div class="card-body p-3">
+        <div class="row">
+          <div class="col-2">
+            <img src="https://cdna.artstation.com/p/assets/images/images/004/155/762/large/jonas-roscinas-final.jpg?1480889774" alt="{{ post.created_by.username }}" class="w-100 rounded">
+            <small>Posts: {{ post.created_by.posts.count }}</small>
+          </div>
+          <div class="col-10">
+            <div class="row mb-3">
+              <div class="col-6">
+                <strong class="text-muted">{{ post.created_by.username }}</strong>
+              </div>
+              <div class="col-6 text-right">
+                <small class="text-muted">{{ post.created_date }}</small>
+              </div>
+            </div>
+            <!-- 신기하게 container 먹이면 markdown/style.css 먹힌다. -->
+            <!-- <div class="container"> -->
+              {{ post.text_to_markdown|safe }}
+            <!-- </div> -->
+            {% if post.created_by == user %}
+              <div class="mt-3">
+                <a href="{% url 'blog:edit_post' post.topic.board.pk post.topic.pk post.pk %}"
+                  class="btn btn-primary btn-sm" 
+                  role="button">Edit</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% if forloop.first %}
+    
+    <div class="h-30"></div>
+    <div class="h-30"></div>
+    <hr class="style-four">
+
+    {% endif %}
+  {% endfor %}
+  {% include 'includes/pagination.html' %}
+</div>
+
+
+
+{% endblock %}

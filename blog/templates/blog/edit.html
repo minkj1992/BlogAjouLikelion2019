@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+<!-- top bar -->
+<div class="top-bar">
+    <h1>edit</h1>
+    <p><a href="#">Home</a> / edit</p>
+</div>
+<!-- end top bar -->
+
+<form method="POST"  class="post-form" action = {% url 'blog:update' post.pk %}>
+    {% csrf_token %}
+    <div class="container">  
+        <br>  
+        <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+            <h3>Update Details</h3>  
+            </div>  
+          </div>  
+
+        <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">title:</label>  
+            <div class="col-sm-4"> 
+                 <!--name="title" id="id_title" 넣어주면 update 문제 해결 완료  -->
+                <input type="text" name="title" id="id_title" value="{{ post.title }}" />  
+            </div>  
+        </div>  
+     <!--name="title" id="id_title" 넣어주면 update 문제 해결 완료  -->
+        <div class="form-group row">  
+            <label class="col-sm-2 col-form-label">description:</label>  
+            <div class="col-sm-4 markdownx"> 
+                <!-- code by https://stackoverflow.com/questions/48610529/how-to-use-django-markdownx-in-my-view-in-similar-way-to-admin -->
+                <textarea name="description" id="id_description" onchange="myMDFunc(this)" onkeyup="myMDFunc(this)" cols="60" rows="5" name="text" >
+                    {{ post.description }}
+                </textarea>
+            </div> 
+        </div>
+
+        <div class="markdownx-preview" id="markdownx-preview">
+            {{ post.text_to_markdown|safe }}
+        </div>
+        
+        <div class="form-group row">  
+            <label class="col-sm-1 col-form-label"></label>  
+            <div class="col-sm-4">  
+                <button type="submit" class="btn btn-success">Update</button>  
+            </div>  
+        </div>  
+    </div>  
+</form>
+
+
+<script type="text/javascript"> 
+function myMDFunc( elem ) {
+  input = elem.value;
+  var csrftoken = Cookies.get('csrftoken');
+  $.ajax(
+    {
+      type: "POST",
+      url: "/markdownx/markdownify/",
+      data: { CSRF: csrftoken, csrfmiddlewaretoken: csrftoken, content: input}
+    })
+    .done(function(data, status){
+      document.getElementById("markdownx-preview").innerHTML = data;
+    });
+} 
+</script>
+
+
+{% endblock %}
+  

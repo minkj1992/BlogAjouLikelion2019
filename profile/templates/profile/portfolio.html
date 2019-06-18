@@ -1,0 +1,91 @@
+<!-- header ,nav, preloader, -->
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block stylesheet %}
+    <!--box 템플릿 Bootstrap -->
+    <link href='{% static "portfolio/css/bootstrap.min.css" %}' rel="stylesheet">
+    <!-- 모바일 관련 box템플릿 css -->
+    <link href='{% static "portfolio/ionicons/css/ionicons.min.css" %}' rel="stylesheet">
+    
+{% endblock %}
+
+
+
+{% load thumbnail %}    
+{% block content %}
+    <!-- top bar -->
+    <div class="top-bar">
+        <h1>portfolio</h1>
+        <a href='{% url "home" %}'>Home</a> / Portfolio
+    </div>
+    <!-- end top bar -->
+
+    <!-- main container 이거 주석하면 화면 가득 얼굴 뜨게 가능 -->
+    <div class="main-container portfolio-inner clearfix container">
+        <!-- portfolio div -->
+        <div class="portfolio-div">
+            <div class="portfolio">
+            <!-- portfolio_filter -->
+                <div class="categories-grid wow fadeInLeft">
+                        <nav class="categories text-center">
+                            <ul class="portfolio_filter">
+                                <li><a href="" class="active" data-filter="*">All</a></li>
+                                <li><a href="" data-filter=".lion">운영진</a></li>
+                                <li><a href="" data-filter=".pre_lion">예비사자</a></li>
+                            </ul>
+                        </nav>
+                </div>
+            <!-- portfolio_filter -->
+                <div class="no-padding portfolio_container clearfix">
+                    {% for profile in profiles.all %}
+                    
+                    <!-- portfolio_container -->
+                        
+                        <!-- 운영진일경우 -->
+                        {% if profile.lion %}
+                        <!-- single work -->
+                        <div class="col-md-4 col-sm-6 lion">
+                                    {% thumbnail profile.photo "680x680" crop="center" as photo %}
+                                        <a href="{% url 'detail' profile.id %}" class="portfolio_item">
+                                            <!-- media 연동해서 사진가져오기 -->
+                                            <img src="{{ photo.url }}" alt="image" class="img-responsive" >
+                                            <div class="portfolio_item_hover">
+                                                <div class="portfolio-border clearfix">
+                                                    <div class="item_info">
+                                                        <span>{{ profile.name }}</span>
+                                                        <em>{{ profile.major }} / {{ profile.grade }}학번</em>
+                                                        <blockquote style='color: ivory;'>{{ profile.summary }}...</blockquote>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    {% endthumbnail %}
+                        </div>
+                        <!-- end single work -->
+                        {% else %}
+                        <div class="col-md-4 col-sm-6 pre_lion">
+                                        {% thumbnail profile.photo "680x680" crop="center" as photo %}
+                                            <a href="{% url 'detail' profile.id %}" class="portfolio_item">
+                                                <!-- media 연동해서 사진가져오기 -->
+                                                <img src="{{ photo.url }}" alt="image" class="img-responsive" >
+                                                <div class="portfolio_item_hover">
+                                                    <div class="portfolio-border clearfix">
+                                                        <div class="item_info">
+                                                            <span>{{ profile.name }}</span>
+                                                            <em>{{ profile.major }} / {{ profile.grade }}학번</em>
+                                                            <blockquote style='color: gainsboro;'>{{ profile.summary }}...</blockquote>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        {% endthumbnail %}
+                        </div>
+                        {% endif %}
+                    
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

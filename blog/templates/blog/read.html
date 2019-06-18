@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- top bar -->
+<div class="top-bar">
+    <h1>detail</h1>
+    <p><a href="#">Home</a> / detail</p>
+</div>
+<!-- end top bar -->
+
+
+<div class="container">
+  <div class="row">
+    <div class="col" >
+        <h1 style="background-color: #f8f8f8;">{{ post_detail.title }}</h1>
+        <h2>{{ post_detail.user }}</h2>
+        <div style="margin: 0 2px;
+        padding: 0 5px;
+        border: 1px solid #ddd;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+        color: #444;">
+            {% autoescape off %}
+            {{ post_detail.text_to_markdown|safe|default:"Empty post" }}
+            {% endautoescape %}
+        </div>
+        <br>
+        <a href="{% url 'blog:notice' %}">back</a> | 
+        {% if flag %}
+        <a href="{% url 'blog:edit' post_detail.pk %}">edit</a> | 
+        <a href="{% url 'blog:destroy' post_detail.pk %}">delete</a>
+    </div>
+  </div>
+</div>
+<hr>
+
+
+
+{% endif %}
+
+{% endblock %}

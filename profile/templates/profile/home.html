@@ -1,0 +1,109 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>LikeLion in Ajou 7기</title>
+    <link rel="icon" href='{% static "portfolio/img/fav.png" %}'  type="image/x-icon">
+
+    <!--box 템플릿 Bootstrap -->
+    <link href='{% static "portfolio/css/bootstrap.min.css" %}' rel="stylesheet">
+    <!-- 모바일 관련 box템플릿 css -->
+    <link href='{% static "portfolio/ionicons/css/ionicons.min.css" %}' rel="stylesheet">
+    
+    <!-- main css -->
+    <link href='{% static "portfolio/css/style.css" %}' rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="pre-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- end Preloader -->
+    <div class="container-fluid">
+        <!-- box header -->
+        <header class="box-header">
+            <div class="box-logo">
+                <!-- 고쳐야 되는 파트 -->
+                <img src='{% static "portfolio/img/logo2.png" %}' width="40" alt="Logo">
+            </div>
+            <!-- box-nav -->
+            <a class="box-primary-nav-trigger" href="#0">
+                <span class="box-menu-text">Menu</span><span class="box-menu-icon"></span>
+            </a>
+            <!-- box-primary-nav-trigger -->
+        </header>
+        <!-- end box header -->
+
+        <!-- nav -->
+        <nav>
+                <ul class="box-primary-nav">
+                    <li class="box-label">LikeLion 2019</li>
+                    {% if user.is_authenticated %}
+                    
+                    <li>반갑습니다 {{ user.username }}님 [<a href='{% url "logout" %}'>Logout</a>]</li>
+                    {% else %}
+                    <li><a href='{% url "login" %}'>Login</a></li>
+                    {% endif %}
+                    
+                    <!-- 고쳐야 되는 파트 -->
+                    <li><a href='{% url "home" %}'>home</a></li>
+                    <li><a href='{% url "portfolio" %}'>portfolio</a></li>
+                    <li><a href='{% url "blog:boards" %}'>board</a></li>
+                    
+                </ul>
+        </nav>
+        <!-- end nav -->
+    </div>
+
+    <!-- box-intro -->
+    <section class="box-intro">
+        <div class="table-cell">
+            <h1 class="box-headline letters rotate-2">
+                <span class="box-words-wrapper">
+                    <b class="is-visible">LIKELION</b>
+                    <b>아주대학교</b>
+                </span>
+            </h1>
+            <h5>아주대학교 멋사 7기 공식 blog</h5>
+            <h6>당신의 열정을 응원합니다.</h6>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+        <div class="container-fluid">
+            <p class="copyright">© 멋쟁이 사자처럼 7기</p>
+        </div>
+    </footer>
+    <!-- end footer -->
+
+    <!-- back to top -->
+    <a href="#0" class="cd-top"><i class="ion-android-arrow-up"></i></a>
+    <!-- end back to top -->
+
+    <!-- jQuery -->
+    <script src='{% static "portfolio/js/jquery-2.1.1.js" %}'></script>
+    <!--  plugins -->
+    <script src='{% static "portfolio/js/menu.js" %}'></script>
+
+    <script src='{% static "portfolio/js/bootstrap.min.js" %}'></script>
+    <script src='{% static "portfolio/js/animated-headline.js" %}'></script>
+    <script src='{% static "portfolio/js/isotope.pkgd.min.js" %}'></script>
+
+    <!--  custom script -->
+    <script src='{% static "portfolio/js/custom.js" %}'></script>
+
+</body>
+
+</html>

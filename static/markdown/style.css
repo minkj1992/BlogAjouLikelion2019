@@ -1,0 +1,77 @@
+.markdownx {
+    display: inline-block;
+    width: 100%;
+}
+.markdownx .markdownx-editor,
+.markdownx .markdownx-preview {
+    margin-left: 0;
+    /* background: #272822; color: #f8f8f2; */
+    
+}
+
+.markdownx .markdownx-editor {
+    width: 49.2%;
+    min-height: 650px;
+    max-height: 650px;
+    position: relative;
+    
+}
+.markdownx .markdownx-preview {
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    font-size: 100%;
+    font-size: 1em;
+    line-height: 1.5em;
+    width: 49.2%;
+    height: 650px;
+    position: absolute;
+    right: 15px;
+    top: 505px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 6px;
+    
+ }
+
+ /* 이미지 사이즈 적용한것 */
+ .col-10 > p > img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.markdownx-preview > p > img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div > div.card-body > p > img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.markdownx .markdownx-preview img {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+hr.style-four {
+    padding: 0;
+    border: none;
+    border-top: medium dashed #8c8b8b;
+    color: #333;
+    text-align: center;
+    }
+    hr.style-four:after {
+    content: "  This is Reply  ";
+    display: inline-block;
+    position: relative;
+    font-family: 'Amatic SC', cursive;
+    top: -0.7em;
+    font-size: 3.0em;
+    padding: 0 0.25em;
+    background-color:#fff;
+    }
