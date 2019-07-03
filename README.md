@@ -1,3 +1,25 @@
+# `아주대 멋쟁이사자처럼 Blog 2019`
+아주대 멋쟁이사자처럼 블로그입니다. 주로 `Django`를 통하여 개발하였습니다.
+
+# 설명
+- `Home`
+<p align="center"><img src="./img/home.png"></p>
+- `login`
+<p align="center"><img src="./img/login.png"></p>
+- `Profile`
+<p align="center"><img src="./img/profile.png"></p>
+- `Profile_detail`
+<p align="center"><img src="./img/profile_detail.png"></p>
+- `Board` (`Board`:`Topic`= `1`:`n`)
+<p align="center"><img src="./img/board.png"></p>
+
+- `Topic` (`Topic`:`Reply` = `1:n`, `User`:`Topic` = `1:n`,`User`:`Reply` = `1:n`)
+<p align="center"><img src="./img/topic_create.png"></p>
+<p align="center"><img src="./img/topic_detail.png"></p>
+- `Reply`
+<p align="center"><img src="./img/reply_detail.png"></p>
+1
+
 # TODO
 - collectstatic aws랑 연동세팅하기
     - https://nachwon.github.io/django-deploy-7-s3/
