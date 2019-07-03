@@ -5,24 +5,33 @@
 - `Home`
 
 <p align="center"><img src="./img/home.png"></p>
+---------------------
 
 - `login`
 
 <p align="center"><img src="./img/login.png"></p>
 
+---------------------
+
 - `Profile`
 
 <p align="center"><img src="./img/profile.png"></p>
+
+---------------------
 
 - `Profile_detail`
 
 <p align="center"><img src="./img/profile_detail.png"></p>
 
+---------------------
+
 - `Board` (`Board`:`Topic`= `1:n`)
 
 <p align="center"><img src="./img/board.png"></p>
 
-`Markdown` 글쓰기와, `Markdown-highlight`를 적용하였으며, `tab`, `\n`사용이 가능하게 하였습니다. `async`하게 ```를 사용하면 event_listen하여, `preview`를 `update`시켜주었습니다.
+`Markdown` 글쓰기와, `Markdown-highlight`를 적용하였으며, `tab`, `\n`사용이 가능하게 하였습니다. `async`하게 `'''`를 사용하면 event_listen하여, `preview`를 `update`시켜주었습니다.
+
+---------------------
 
 - `Topic` (`Topic`:`Reply` = `1:n`, `User`:`Topic` = `1:n`,`User`:`Reply` = `1:n`)
 
@@ -30,9 +39,12 @@
 
 <p align="center"><img src="./img/topic_detail.png"></p>
 
+---------------------
+
 - `Reply`
 
 <p align="center"><img src="./img/reply.png"></p>
+
 
 # TODO
 - collectstatic aws랑 연동세팅하기
