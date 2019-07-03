@@ -30,7 +30,7 @@
 
 - `Reply`
 
-<p align="center"><img src="./img/reply_detail.png"></p>
+<p align="center"><img src="./img/reply.png"></p>
 
 # TODO
 - collectstatic aws랑 연동세팅하기
